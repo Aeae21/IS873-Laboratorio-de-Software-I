@@ -10,8 +10,8 @@
 
 | Documento | Enlace |
 |---|---|
-| Planteamiento del proyecto, requerimientos, casos de uso, MoSCoW y diseño | [PDF – Sistema de Inventarios y Facturación](https://drive.google.com/file/d/1y_59eI5kgEGdb9yR6bzz1Of0dkrWwxMs/view?usp=drive_link) |
-| Requerimientos, casos de uso detallados y backlog | [Excel – Sistema de Inventarios y Facturación](https://docs.google.com/spreadsheets/d/1PX9YPwMidkAtZ8XLiIKNp_MuMKh0TXYU/edit?usp=drive_link&ouid=112128559464804222856&rtpof=true&sd=true) |
+| Planteamiento del proyecto, requerimientos, casos de uso, MoSCoW y diseño | [PDF - Sistema de Inventarios y Facturación](https://drive.google.com/file/d/1y_59eI5kgEGdb9yR6bzz1Of0dkrWwxMs/view?usp=drive_link) |
+| Requerimientos, casos de uso detallados y backlog | [Excel - Sistema de Inventarios y Facturación](https://docs.google.com/spreadsheets/d/1PX9YPwMidkAtZ8XLiIKNp_MuMKh0TXYU/edit?usp=drive_link&ouid=112128559464804222856&rtpof=true&sd=true) |
 
 ---
 
