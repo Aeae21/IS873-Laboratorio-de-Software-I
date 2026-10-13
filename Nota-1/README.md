@@ -66,12 +66,12 @@ La tabla `producto` tiene además la regla `CHECK (existencias >= 0)` como últi
 2. En pgAdmin, crear la base de datos `sif_poc`.
 3. Abrir el **Query Tool** sobre `sif_poc` y ejecutar el archivo `crear_tabla.sql`.
 
-### 2. Configurar la clave
+### 2. Configurar la contraseña
 
-En `prueba_concepto.java`, cambiar la clave por la de su PostgreSQL:
+En `prueba_concepto.java`, cambiar la contraseña por la de su PostgreSQL:
 
 ```java
-static String clave = "TU_CLAVE";
+static String password = "password";
 ```
 
 ### 3. Ejecutar desde CMD
