@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{Vista/Inicio/plantilla :: cabecera}"></head>
+    <body>
+        <div th:replace="~{Vista/Inicio/plantilla :: menu}"></div>
+        <div class="contenido">
+            <h3>Consultar existencias</h3>
+            <!-- Search by SKU, product, type and status (RF-05) -->
+            <form class="filtros" action="/existencias" method="get">
+                SKU <input type="text" name="sku" th:value="${sku}">
+                Producto <input type="text" name="producto" th:value="${producto}">
+                Tipo de producto <select name="tipo">
+                    <option value="">Todos</option>
+                    <option th:each="t : ${tipos}" th:value="${t.tipoProducto}" th:text="${t.tipoProducto}"
+                            th:selected="${t.tipoProducto == tipo}"></option>
+                </select>
+                Estado <select name="estado">
+                    <option value="">Todos</option>
+                    <option value="ACTIVO" th:selected="${estado == 'ACTIVO'}">Activo</option>
+                    <option value="INACTIVO" th:selected="${estado == 'INACTIVO'}">Inactivo</option>
+                </select>
+                <button class="boton">Buscar</button>
+            </form>
+
+            <table th:if="${!productos.isEmpty()}">
+                <tr><th>SKU</th><th>Producto</th><th>Tipo de producto</th><th>Precio</th><th>Entradas</th>
+                    <th>Salidas</th><th>En proceso</th><th>Existencias disponibles</th></tr>
+                <tr th:each="p : ${productos}">
+                    <td th:text="${p.sku}"></td>
+                    <td th:text="${p.producto}"></td>
+                    <td th:text="${p.nombreTipo}"></td>
+                    <td th:text="'$' + ${#numbers.formatInteger(p.precioVenta, 1, 'POINT')}"></td>
+                    <td th:text="${p.entradas}"></td>
+                    <td th:text="${p.salidas}"></td>
+                    <td th:text="${p.enProceso}"></td>
+                    <td><b th:text="${p.existencias}"></b></td>
+                </tr>
+            </table>
+            <!-- MSG-19 -->
+            <p th:if="${productos.isEmpty()}">No se encontraron registros.</p>
+            <!-- RNF-04: 20 records per page. The links keep the filters. -->
+            <p>
+                <a class="boton" th:if="${pagina > 1}"
+                   th:href="@{/existencias(sku=${sku}, producto=${producto}, tipo=${tipo}, estado=${estado}, pagina=${pagina - 1})}">Anterior</a>
+                Página <span th:text="${pagina}"></span>
+                <a class="boton" th:if="${productos.size() == 20}"
+                   th:href="@{/existencias(sku=${sku}, producto=${producto}, tipo=${tipo}, estado=${estado}, pagina=${pagina + 1})}">Siguiente</a>
+            </p>
+        </div>
+    </body>
+</html>
