@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{Vista/Inicio/plantilla :: cabecera}"></head>
+    <body>
+        <div th:replace="~{Vista/Inicio/plantilla :: menu}"></div>
+        <div class="contenido">
+            <h3>Tipo de producto</h3>
+            <div th:replace="~{Vista/Inicio/plantilla :: mensajes}"></div>
+            <form th:action="@{/tipos/guardar}" th:object="${tipo}" method="post">
+                <input type="hidden" th:field="*{id}">
+                <label>Tipo de producto</label><input type="text" th:field="*{tipoProducto}"><br>
+                <label>Descripción</label><input type="text" th:field="*{descripcion}"><br>
+                <label>Estado</label>
+                <select th:field="*{estado}">
+                    <option value="ACTIVO">Activo</option>
+                    <option value="INACTIVO">Inactivo</option>
+                </select><br>
+                <label></label><button class="boton">Guardar</button>
+                <a class="boton" href="/tipos">Cancelar</a>
+            </form>
+        </div>
+    </body>
+</html>
