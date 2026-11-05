@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Vista/Inicio/plantilla :: cabecera}"></head>
+<body>
+<div th:replace="~{Vista/Inicio/plantilla :: menu}"></div>
+<div class="contenido">
+    <h3>Producto</h3>
+    <div th:replace="~{Vista/Inicio/plantilla :: mensajes}"></div>
+    <form th:action="@{/productos/guardar}" th:object="${item}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <label>SKU</label><input type="text" th:field="*{sku}" placeholder="ACME-XXX-000"><br>
+        <label>Producto</label><input type="text" th:field="*{producto}"><br>
+        <label>Descripción</label><input type="text" th:field="*{descripcion}"><br>
+        <label>Tipo de producto</label>
+        <select th:field="*{tipoProductoId}">
+            <option value="">-- Seleccione --</option>
+            <option th:each="t : ${tipos}" th:value="${t.id}" th:text="${t.tipoProducto}"></option>
+        </select><br>
+        <label>Precio de venta</label><input type="number" th:field="*{precioVenta}"><br>
+        <label>Existencias</label><span th:text="*{existencias}"></span> (cambian con los movimientos de inventario)<br><br>
+        <label>Estado</label>
+        <select th:field="*{estado}">
+            <option value="ACTIVO">Activo</option>
+            <option value="INACTIVO">Inactivo</option>
+        </select><br>
+        <label></label><button class="boton">Guardar</button>
+        <a class="boton" href="/productos">Cancelar</a>
+    </form>
+</div>
+</body>
+</html>
