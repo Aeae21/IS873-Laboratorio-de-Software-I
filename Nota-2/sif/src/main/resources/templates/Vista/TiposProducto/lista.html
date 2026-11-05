@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{Vista/Inicio/plantilla :: cabecera}"></head>
+    <body>
+        <div th:replace="~{Vista/Inicio/plantilla :: menu}"></div>
+        <div class="contenido">
+            <h3>Tipos de producto</h3>
+            <div th:replace="~{Vista/Inicio/plantilla :: mensajes}"></div>
+            <a class="boton" href="/tipos/nuevo">Nuevo tipo de producto</a>
+            <table>
+                <tr><th>Tipo de producto</th><th>Descripción</th><th>Estado</th><th></th></tr>
+                <tr th:each="t : ${tipos}">
+                    <td th:text="${t.tipoProducto}"></td>
+                    <td th:text="${t.descripcion}"></td>
+                    <td th:text="${t.estado}"></td>
+                    <td>
+                        <a class="boton" th:href="@{/tipos/editar/{id}(id=${t.id})}">Editar</a>
+                        <form th:action="@{/tipos/eliminar/{id}(id=${t.id})}" method="post">
+                            <button class="boton">Eliminar</button>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+            <!-- RNF-04: 20 records per page -->
+            <p>
+                <a class="boton" th:if="${pagina > 1}" th:href="@{/tipos(pagina=${pagina - 1})}">Anterior</a>
+                Página <span th:text="${pagina}"></span>
+                <a class="boton" th:if="${tipos.size() == 20}" th:href="@{/tipos(pagina=${pagina + 1})}">Siguiente</a>
+            </p>
+        </div>
+    </body>
+</html>
