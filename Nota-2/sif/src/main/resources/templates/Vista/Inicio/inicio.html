@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head th:replace="~{Vista/Inicio/plantilla :: cabecera}"></head>
+    <body>
+        <div th:replace="~{Vista/Inicio/plantilla :: menu}"></div>
+        <div class="contenido">
+            <!-- MSG-04 -->
+            <div class="error" th:if="${param.sinPermiso}">No tiene permiso para realizar esta operación.</div>
+            <h3 th:text="'Bienvenido(a), ' + ${session.usuario.nombreCompleto}"></h3>
+            <p>Seleccione una opción del menú.</p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <!-- Parts that repeat on all screens: styles, header, menu and messages -->
+
+    <head th:fragment="cabecera">
+        <meta charset="UTF-8">
+        <title>SIF - ACME Corporation</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+            }
+            .encabezado {
+                display: flex;
+                justify-content: space-between;
+                padding: 8px 12px;
+                border-bottom: 1px solid #000;
+            }
+            .menu {
+                background: #ddd;
+                border-bottom: 2px solid #999;
+                padding: 6px 8px;
+            }
+            .menu a, .enlace {
+                color: #000;
+                text-decoration: none;
+                margin-right: 14px;
+            }
+            .enlace {
+                background: none;
+                border: none;
+                padding: 0;
+                font-size: 16px;
+                font-family: Arial, sans-serif;
+                cursor: pointer;
+            }
+            .contenido {
+                padding: 12px;
+            }
+            table {
+                border-collapse: collapse;
+                margin-top: 10px;
+            }
+            th, td {
+                border: 1px solid #000;
+                padding: 4px 8px;
+            }
+            th {
+                background: #f0f0f0;
+            }
+            .boton {
+                background: #f4f4f4;
+                border: 2px solid #000;
+                border-radius: 6px;
+                padding: 3px 14px;
+                color: #000;
+                text-decoration: none;
+                font-size: 14px;
+                cursor: pointer;
+            }
+            td form {
+                display: inline;
+            }
+            label {
+                display: inline-block;
+                width: 160px;
+                margin-bottom: 8px;
+            }
+            input, select {
+                font-size: 15px;
+                padding: 2px 4px;
+                min-width: 200px;
+            }
+            .filtros input, .filtros select {
+                min-width: 110px;
+                margin-right: 8px;
+            }
+            .mensaje {
+                background: #e6f4e6;
+                border: 1px solid green;
+                padding: 6px;
+                margin-bottom: 10px;
+            }
+            .error {
+                background: #fdeaea;
+                border: 1px solid red;
+                padding: 6px;
+                margin-bottom: 10px;
+            }
+        </style>
+    </head>
+
+    <body>
+        <div th:fragment="menu">
+            <!-- Name and role of the user who logged in -->
+            <div class="encabezado">
+                <b>SIF - ACME Corporation</b>
+                <span th:text="${session.usuario.nombreCompleto} + ' (' + ${session.usuario.rol} + ')'"></span>
+            </div>
+            <!-- Menu by role: only the Administrador can see Usuarios and Tipos -->
+            <div class="menu">
+                <a href="/">Inicio</a>
+                <a href="/usuarios" th:if="${session.usuario.rol == 'ADMINISTRADOR'}">Usuarios</a>
+                <a href="/tipos" th:if="${session.usuario.rol == 'ADMINISTRADOR'}">Tipos</a>
+                <a href="/productos">Productos</a>
+                <a href="/existencias">Existencias</a>
+                <!-- Spring Security closes the session with a form (POST) -->
+                <form th:action="@{/salir}" method="post" style="display: inline">
+                    <button class="enlace">Salir</button>
+                </form>
+            </div>
+        </div>
+
+        <!-- Green message (everything OK) or red message (error) -->
+        <div th:fragment="mensajes">
+            <div class="mensaje" th:if="${mensaje}" th:text="${mensaje}"></div>
+            <div class="error" th:if="${error}" th:text="${error}"></div>
+        </div>
+    </body>
+</html>
