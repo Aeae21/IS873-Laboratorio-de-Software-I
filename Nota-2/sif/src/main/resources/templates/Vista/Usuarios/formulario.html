@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Vista/Inicio/plantilla :: cabecera}"></head>
+<body>
+<div th:replace="~{Vista/Inicio/plantilla :: menu}"></div>
+<div class="contenido">
+    <h3>Usuario</h3>
+    <div th:replace="~{Vista/Inicio/plantilla :: mensajes}"></div>
+    <form th:action="@{/usuarios/guardar}" th:object="${usuario}" method="post">
+        <input type="hidden" th:field="*{id}">
+        <label>Cédula</label><input type="text" th:field="*{cedula}"><br>
+        <label>Nombre completo</label><input type="text" th:field="*{nombreCompleto}"><br>
+        <label>Nombre de usuario</label><input type="text" th:field="*{nombreUsuario}"><br>
+        <label>Correo</label><input type="text" th:field="*{correo}"><br>
+        <label>Contraseña</label><input type="password" name="contrasena" placeholder="Mínimo 8 caracteres"><br>
+        <label>Rol</label>
+        <select th:field="*{rol}">
+            <option value="ADMINISTRADOR">Administrador</option>
+            <option value="VENDEDOR">Vendedor</option>
+        </select><br>
+        <label>Estado</label>
+        <select th:field="*{estado}">
+            <option value="ACTIVO">Activo</option>
+            <option value="INACTIVO">Inactivo</option>
+        </select><br>
+        <label></label><button class="boton">Guardar</button>
+        <a class="boton" href="/usuarios">Cancelar</a>
+    </form>
+    <p th:if="*{id != null}">Si deja la contraseña vacía, se conserva la actual.</p>
+</div>
+</body>
+</html>

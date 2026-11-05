@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Vista/Inicio/plantilla :: cabecera}"></head>
+<body>
+<div th:replace="~{Vista/Inicio/plantilla :: menu}"></div>
+<div class="contenido">
+    <h3>Usuarios</h3>
+    <div th:replace="~{Vista/Inicio/plantilla :: mensajes}"></div>
+    <a class="boton" href="/usuarios/nuevo">Nuevo usuario</a>
+    <table>
+        <tr><th>Cédula</th><th>Nombre completo</th><th>Nombre de usuario</th><th>Correo</th><th>Rol</th><th>Estado</th><th></th></tr>
+        <tr th:each="u : ${usuarios}">
+            <td th:text="${u.cedula}"></td>
+            <td th:text="${u.nombreCompleto}"></td>
+            <td th:text="${u.nombreUsuario}"></td>
+            <td th:text="${u.correo}"></td>
+            <td th:text="${u.rol}"></td>
+            <td th:text="${u.estado}"></td>
+            <td>
+                <a class="boton" th:href="@{/usuarios/editar/{id}(id=${u.id})}">Editar</a>
+                <form th:action="@{/usuarios/eliminar/{id}(id=${u.id})}" method="post">
+                    <button class="boton">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <!-- RNF-04: 20 records per page -->
+    <p>
+        <a class="boton" th:if="${pagina > 1}" th:href="@{/usuarios(pagina=${pagina - 1})}">Anterior</a>
+        Página <span th:text="${pagina}"></span>
+        <a class="boton" th:if="${usuarios.size() == 20}" th:href="@{/usuarios(pagina=${pagina + 1})}">Siguiente</a>
+    </p>
+</div>
+</body>
+</html>
