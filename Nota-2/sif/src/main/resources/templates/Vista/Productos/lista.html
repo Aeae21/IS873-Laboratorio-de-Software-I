@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{Vista/Inicio/plantilla :: cabecera}"></head>
+<body>
+<div th:replace="~{Vista/Inicio/plantilla :: menu}"></div>
+<div class="contenido" th:with="esAdmin=${session.usuario.rol == 'ADMINISTRADOR'}">
+    <h3>Productos</h3>
+    <div th:replace="~{Vista/Inicio/plantilla :: mensajes}"></div>
+    <!-- Only the Administrador can see the buttons to create, edit and delete -->
+    <a class="boton" href="/productos/nuevo" th:if="${esAdmin}">Nuevo producto</a>
+    <table>
+        <tr><th>SKU</th><th>Producto</th><th>Descripción</th><th>Tipo de producto</th><th>Precio de venta</th>
+            <th>Existencias</th><th>Estado</th><th th:if="${esAdmin}"></th></tr>
+        <tr th:each="p : ${productos}">
+            <td th:text="${p.sku}"></td>
+            <td th:text="${p.producto}"></td>
+            <td th:text="${p.descripcion}"></td>
+            <td th:text="${p.nombreTipo}"></td>
+            <td th:text="'$' + ${#numbers.formatInteger(p.precioVenta, 1, 'POINT')}"></td>
+            <td th:text="${p.existencias}"></td>
+            <td th:text="${p.estado}"></td>
+            <td th:if="${esAdmin}">
+                <a class="boton" th:href="@{/productos/editar/{id}(id=${p.id})}">Editar</a>
+                <form th:action="@{/productos/eliminar/{id}(id=${p.id})}" method="post">
+                    <button class="boton">Eliminar</button>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <!-- RNF-04: 20 records per page -->
+    <p>
+        <a class="boton" th:if="${pagina > 1}" th:href="@{/productos(pagina=${pagina - 1})}">Anterior</a>
+        Página <span th:text="${pagina}"></span>
+        <a class="boton" th:if="${productos.size() == 20}" th:href="@{/productos(pagina=${pagina + 1})}">Siguiente</a>
+    </p>
+</div>
+</body>
+</html>
